@@ -7,36 +7,38 @@
 // 5 2 6 7
 // Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
 
+Console.Clear();
+
 Console.WriteLine($"\nВведите размер массива m x n:");
 int m = InputNumbers("Введите m: ");
 int n = InputNumbers("Введите n: ");
 
 int[,] array = new int[m, n];
-CreateArray(array);
-WriteArray(array);
+FillArray(array);
+PrintArray(array);
 
-int minSumLine = 0;
-int sumLine = SumLineElements(array, 0);
+int minSum = 0;
+int sum = Sum(array, 0);
 for (int i = 1; i < array.GetLength(0); i++)
 {
-    int tempSumLine = SumLineElements(array, i);
-    if (sumLine > tempSumLine)
+    int tempSum = Sum(array, i);
+    if (sum > tempSum)
     {
-        sumLine = tempSumLine;
-        minSumLine = i;
+        sum = tempSum;
+        minSum = i;
     }
 }
 
-Console.WriteLine($"\n{minSumLine + 1} строка - строкa с наименьшей суммой элементов: сумма ({sumLine})");
+Console.WriteLine($"\n{minSum + 1} строка - строкa с наименьшей суммой элементов: сумма ({sum})");
 
-int SumLineElements(int[,] array, int i)
+int Sum(int[,] array, int i)
 {
-    int sumLine = array[i, 0];
+    int sum = array[i, 0];
     for (int j = 1; j < array.GetLength(1); j++)
     {
-        sumLine += array[i, j];
+        sum += array[i, j];
     }
-    return sumLine;
+    return sum;
 }
 
 int InputNumbers(string input)
@@ -46,7 +48,7 @@ int InputNumbers(string input)
     return output;
 }
 
-void CreateArray(int[,] array)
+void FillArray(int[,] array)
 {
     for (int i = 0; i < array.GetLength(0); i++)
     {
@@ -57,13 +59,13 @@ void CreateArray(int[,] array)
     }
 }
 
-void WriteArray(int[,] array)
+void PrintArray(int[,] array)
 {
     for (int i = 0; i < array.GetLength(0); i++)
     {
         for (int j = 0; j < array.GetLength(1); j++)
         {
-            Console.Write(array[i, j] + " ");
+            Console.Write($"{array[i, j]} ");
         }
         Console.WriteLine();
     }
